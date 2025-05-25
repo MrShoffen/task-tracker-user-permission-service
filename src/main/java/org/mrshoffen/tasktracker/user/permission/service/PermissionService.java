@@ -83,7 +83,7 @@ public class PermissionService {
         return getUserPermissionsInWorkspace(principalId, workspaceId)
                 .collectList()
                 .flatMap(permissions -> {
-                    if (permissions.contains(Permission.ASSIGN_PERMISSIONS_TO_USER) ) {
+                    if (permissions.contains(Permission.UPDATE_WORKSPACE_PERMISSIONS) ) {
                         return Mono.empty();
                     } else {
                         return Mono.error(new AccessDeniedException("Данный пользователь не может выдавать права в пространстве!"));
