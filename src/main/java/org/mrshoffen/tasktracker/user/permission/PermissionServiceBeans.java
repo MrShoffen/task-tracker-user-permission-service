@@ -2,9 +2,7 @@ package org.mrshoffen.tasktracker.user.permission;
 
 import io.r2dbc.spi.ConnectionFactory;
 import org.mrshoffen.tasktracker.user.permission.client.UserClient;
-import org.mrshoffen.tasktracker.user.permission.model.dto.links.UserPermissionResponseDtoLinksInjector;
 import org.mrshoffen.tasktracker.user.permission.model.entity.UserPermission;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,11 +35,5 @@ public class PermissionServiceBeans {
     public UserClient userClient(WebClient.Builder webClientBuilder) {
         return new UserClient(webClientBuilder.baseUrl("http://user-profile-ws").build());
     }
-
-    @Bean
-    UserPermissionResponseDtoLinksInjector UserPermissionResponseDtoLinksInjector(@Value("${app.gateway.api-prefix}") String apiPrefix) {
-        return new UserPermissionResponseDtoLinksInjector(apiPrefix);
-    }
-
 
 }

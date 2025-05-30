@@ -20,7 +20,7 @@ public class EventListener {
     public void handleNewWorkspaceCreation(WorkspaceCreatedEvent event) {
         log.info("Received event in topic {} - {}", WorkspaceCreatedEvent.TOPIC, event);
         permissionService
-                .grantAllPermissionsToWorkspaceOwner(event.getUserId(), event.getWorkspaceId())
+                .grantAllPermissionsToWorkspaceOwner(event.getCreatedWorkspace().getUserId(), event.getCreatedWorkspace().getId())
                 .block();
     }
 
