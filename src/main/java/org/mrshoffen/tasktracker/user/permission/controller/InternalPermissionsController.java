@@ -31,4 +31,12 @@ public class InternalPermissionsController {
         return permissionService
                 .getAllPermissionsInWorkspace(workspaceId);
     }
+
+    @GetMapping("/users/{userId}/workspaces/permissions")
+    Flux<UserPermissionResponseDto> geAllUserPermissions(@PathVariable("userId") UUID userId) {
+        return permissionService
+                .getAllUserPermissions(userId);
+    }
+
+
 }

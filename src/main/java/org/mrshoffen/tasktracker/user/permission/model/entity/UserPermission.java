@@ -38,7 +38,6 @@ public class UserPermission {
     @Column("permissions")
     private List<Permission> permissions;
 
-
     @WritingConverter
     public static class PermissionListToStringConverter implements Converter<List<Permission>, String> {
         @Override

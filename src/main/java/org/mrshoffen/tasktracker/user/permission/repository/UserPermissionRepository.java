@@ -14,4 +14,7 @@ public interface UserPermissionRepository extends ReactiveCrudRepository<UserPer
     Flux<UserPermission> findAllByWorkspaceId( UUID workspaceId);
 
     Mono<UserPermission> findByUserIdAndWorkspaceId(UUID userId, UUID workspaceId);
+
+    Flux<UserPermission> findAllByUserId(UUID userId);
+
 }

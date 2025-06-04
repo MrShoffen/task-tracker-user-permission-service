@@ -42,6 +42,12 @@ public class PermissionService {
                 .then();
     }
 
+   public Flux<UserPermissionResponseDto> getAllUserPermissions(UUID userId) {
+        return userPermissionRepository
+                .findAllByUserId(userId)
+                .map(userPermissionMapper::toDto);
+    }
+
     public Mono<UserPermissionResponseDto> grantPermissionsToUserByEmail(UUID principalId, PermissionCreateDtoEmail createDto, UUID workspaceId) {
         return verifyPrincipalPermissionToGrant(principalId, workspaceId)
                 .then(userClient.getUserId(createDto.userEmail()))
@@ -58,7 +64,7 @@ public class PermissionService {
 
     }
 
-    public Flux<UserPermissionResponseDto> getAllPermissions(UUID principalId, UUID workspaceId) {
+    public Flux<UserPermissionResponseDto> getAllPermissionsInWorkspace(UUID principalId, UUID workspaceId) {
         return getUserPermissionsInWorkspace(principalId, workspaceId)
                 .collectList()
                 .flatMapMany(permissions -> {
@@ -83,7 +89,7 @@ public class PermissionService {
         return getUserPermissionsInWorkspace(principalId, workspaceId)
                 .collectList()
                 .flatMap(permissions -> {
-                    if (permissions.contains(Permission.UPDATE_WORKSPACE_PERMISSIONS) ) {
+                    if (permissions.contains(Permission.UPDATE_WORKSPACE_PERMISSIONS)) {
                         return Mono.empty();
                     } else {
                         return Mono.error(new AccessDeniedException("Данный пользователь не может выдавать права в пространстве!"));

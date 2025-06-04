@@ -67,7 +67,7 @@ public class ExternalPermissionsController {
     Flux<UserPermissionResponseDto> getAllPermissionsInWorkspace(@RequestHeader(AUTHORIZED_USER_HEADER_NAME) UUID principalId,
                                                                  @PathVariable("workspaceId") UUID workspaceId) {
         return permissionService
-                .getAllPermissions(principalId, workspaceId);
+                .getAllPermissionsInWorkspace(principalId, workspaceId);
     }
 
 }
